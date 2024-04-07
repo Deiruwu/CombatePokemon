@@ -72,6 +72,18 @@ public class CrearPokemon extends plantillaPokemon{
         return spd;
     }
 
+    public boolean precisionAtaque(){
+    
+        return false;
+    }
+
+    public double getStab() {
+        double stab = 1;
+        if (getTipo() == getAtaques().get(0).getTipo()) 
+            stab = 1.5;
+        return stab;
+    }
+
     public int getNivelActual() {
         return nivelActual;
     }
@@ -87,4 +99,5 @@ public class CrearPokemon extends plantillaPokemon{
     public void setAtaques(ArrayList<Ataque> ataques) {
         this.ataques = ataques;
     }
+    
 }

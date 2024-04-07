@@ -25,7 +25,7 @@ public class plantillaPokemon {
 
     static HashMap<Integer, Ataque> ataquesAprendiblesCharmander = new HashMap<Integer, Ataque>() {{
         put(1, Ataque.arañazo);
-        put(2, Ataque.refugio);
+        put(2, Ataque.gruñido);
         put(9, Ataque.ascuas);
         put(30, Ataque.cuchillada);
         put(38, Ataque.lanzallamas);
@@ -72,7 +72,17 @@ public class plantillaPokemon {
         this.estadísticasCombate = pokemon.estadísticasCombate;
         this.evolucion = pokemon.evolucion;
     }
+    
+    public static void main(String[] args) {
+        HashMap <Integer, Ataque> ataques = bulbasaur.getListaAtaquesAprendibles();
 
+        for (int i = 1; i <= 5; i++) {
+            if (ataques.containsKey(i)) {
+                System.out.println(ataques.get(i).getNombre());
+            }
+        }
+    }
+    
     public String getEmote() {
         return emote;
     }
@@ -101,15 +111,6 @@ public class plantillaPokemon {
         return ataquesAprendibles;
     }
 
-    public static void main(String[] args) {
-        HashMap <Integer, Ataque> ataques = bulbasaur.getListaAtaquesAprendibles();
-
-        for (int i = 1; i <= 5; i++) {
-            if (ataques.containsKey(i)) {
-                System.out.println(ataques.get(i).getNombre());
-            }
-        }
-    }
 
     public StatsCombate getEstadisticasCombate() {
         return estadísticasCombate;

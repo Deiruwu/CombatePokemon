@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class Entrenador {
     String nombre;
     ArrayList<CrearPokemon> equipo = new ArrayList<>();
-    public Object getEquipo;
 
     public Entrenador(String nombre, ArrayList<CrearPokemon> equipo) {
         this.nombre = nombre;
@@ -25,6 +24,10 @@ public class Entrenador {
         for (Ataque ataque : bulbasaurAtaques) {
             System.out.println(ataque.getNombre());
         }
+                ArrayList<Ataque> charmanderAtaques = charmander.getAtaques();
+        for (Ataque ataque : charmanderAtaques) {
+            System.out.println(ataque.getNombre());
+        }
 
     }
 
@@ -42,14 +45,9 @@ public class Entrenador {
 
     public void setEquipo(ArrayList<CrearPokemon> equipo) {
         this.equipo = equipo;
-    }
+    }  
 
-    public Object getGetEquipo() {
-        return getEquipo;
+    public CrearPokemon getPrimerPokemon() {
+        return equipo.get(0);
     }
-
-    public void setGetEquipo(Object getEquipo) {
-        this.getEquipo = getEquipo;
-    }
-    
 }
