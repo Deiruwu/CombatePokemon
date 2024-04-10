@@ -113,6 +113,7 @@ public class Ataque extends AtaqueBase{
         this.contacto = false;
     }
 
+
     public Categoria getCategoria() {
         return categoria;
     }

@@ -30,7 +30,7 @@ public class Entrenador {
         }
 
     }
-
+    
     public String getNombre() {
         return nombre;
     }

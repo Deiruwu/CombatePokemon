@@ -77,6 +77,14 @@ public class CrearPokemon extends plantillaPokemon{
         return false;
     }
 
+    public boolean isFisico(){
+        if (ataques.get(0).categoria == Categoria.FISICO) 
+            return true;
+        else
+            return false;
+        
+    }
+
     public double getStab() {
         double stab = 1;
         if (getTipo() == getAtaques().get(0).getTipo()) 
