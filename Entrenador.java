@@ -46,8 +46,4 @@ public class Entrenador {
     public void setEquipo(ArrayList<CrearPokemon> equipo) {
         this.equipo = equipo;
     }  
-
-    public CrearPokemon getPrimerPokemon() {
-        return equipo.get(0);
-    }
 }

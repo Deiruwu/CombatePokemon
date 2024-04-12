@@ -16,15 +16,33 @@ public class Combate {
         this.defensor = aux;
     }
 
-    public int calcularDaño(){
+    public CrearPokemon getPkmAtac() {
+        return atacante.equipo.get(0);
+    }
 
-        double b = atacante.getPrimerPokemon().getStab(); // STAB
+    public CrearPokemon getPkmDef() {
+        return defensor.equipo.get(0);
+    }
+    public boolean primerAtacante(){
+        return (getPkmAtac().calculateSpd() > getPkmDef().calculateSpd() && getPrioAtacan() >= getPrioDefen()) ? true : false;
+    }
+
+    public short getPrioAtacan(){
+        return getPkmAtac().getAtaques().get(0).getPrioridad();
+    }
+
+    public short getPrioDefen(){
+        return getPkmDef().getAtaques().get(0).getPrioridad();
+    }
+
+    public int calcularDaño(){
+        double b = getPkmAtac().getStab(); // STAB
         double e = getEfectividad(); // Efectividad
         int v = variacionDaño(); // Variación de daño
-        int n = atacante.getPrimerPokemon().getNivelActual(); // Nivel del atacante
-        int a = getStatOfensiva(); // Ataque del atacante
+        int n = getPkmAtac().getNivelActual(); // Nivel del atacante
+        int a = getStatOfensivo(); // Ataque del atacante
         int d = getStatDefensiva(); // Defensa del defensor
-        int p = atacante.getPrimerPokemon().getAtaques().get(0).getPotencia(); /* Potencia del ataque 
+        int p = getPkmAtac().getAtaques().get(0).getPotencia(); /* Potencia del ataque 
         double b = 1.5;
         double e = 0.5;
         int v = 85;
@@ -42,42 +60,33 @@ public class Combate {
     }
 
     public boolean isFisico(){
-        return atacante.getPrimerPokemon().isFisico();
+        return getPkmAtac().isFisico();
     }
 
-    public int getStatOfensiva(){
+    public int getStatOfensivo(){
         return isFisico() ?
-        atacante.getPrimerPokemon().getEstadisticasCombate().getAtaqueBase() :
-        atacante.getPrimerPokemon().getEstadisticasCombate().getAtaqueEspecialBase();
+        getPkmAtac().getEstadisticasCombate().getAtaqueBase() :
+        getPkmAtac().getEstadisticasCombate().getAtaqueEspecialBase();
     }
 
     public int getStatDefensiva(){
             return isFisico() ?
-            defensor.getPrimerPokemon().getEstadisticasCombate().getDefensaBase() : 
-            defensor.getPrimerPokemon().getEstadisticasCombate().getDefensaEspecialBase();
+            getPkmDef().getEstadisticasCombate().getDefensaBase() : 
+            getPkmDef().getEstadisticasCombate().getDefensaEspecialBase();
     }
 
     public double getEfectividad(){
-        String tipo = atacante.getPrimerPokemon().getTipo().getNombre();
-        HashMap<String, Double> efectividades = defensor.getPrimerPokemon().getTipo().efectividades;        
+        String tipo = getPkmAtac().getTipo().getNombre();
+        HashMap<String, Double> efectividades = getPkmDef().getTipo().efectividades;        
         return efectividades.get(tipo);
     }
 
     public StatsCombate getStatsAtacante(){
-        return atacante.getPrimerPokemon().getEstadisticasCombate();
+        return getPkmAtac().getEstadisticasCombate();
     }
 
     public StatsCombate getStatsDefensor(){
-        return defensor.getPrimerPokemon().getEstadisticasCombate();
-    }
-
-    public Entrenador getAtacante() {
-        return atacante;
-    }
-
-
-    public Entrenador getRival() {
-        return defensor;
+        return getPkmDef().getEstadisticasCombate();
     }
 
 }
