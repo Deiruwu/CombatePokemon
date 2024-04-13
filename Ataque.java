@@ -24,8 +24,8 @@ public class Ataque extends AtaqueBase{
     public static Ataque drenadoras = new Ataque("Drenadoras", Tipo.planta, 0, 10, Categoria.ESPECIAL, 90,  "Recupera la mitad del daño causado");
 
     public static Ataque placaje = new Ataque("Placaje", Tipo.normal, 40, 35);
-    public static Ataque cabezazo = new Ataque("Cabezazo", Tipo.normal, 130, 10);
     public static Ataque arañazo = new Ataque("Arañazo", Tipo.normal, 40, 35);
+    public static Ataque cabezazo = new Ataque("Cabezazo", Tipo.normal, 130, 10);
     public static Ataque cuchillada = new Ataque("Cuchillada", Tipo.normal, 70, 20);
     public static Ataque gruñido = new Ataque("Gruñido", Tipo.normal, 0, 40, Categoria.ESTADO, "Baja el ataque del objetivo");
     public static Ataque latigo = new Ataque ("Latigo", Tipo.normal, 0, 40, Categoria.ESTADO, "Baja la defensa del objetivo");

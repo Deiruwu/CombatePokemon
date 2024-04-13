@@ -44,4 +44,11 @@ public abstract class AtaqueBase {
     public void setPp(int pp) {
         this.pp = pp;
     }
+
+    @Override
+    public String toString() {
+        return "Ataque: " + nombre;
+    }
+
+    
 }

@@ -8,7 +8,6 @@ public class plantillaPokemon {
     double altura;
     char sexo;
     int numPokedex;
-
     HashMap<Integer, Ataque> ataquesAprendibles;
     StatsCombate estadísticasCombate;
     Evolucion evolucion;

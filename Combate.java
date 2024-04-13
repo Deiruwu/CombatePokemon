@@ -1,9 +1,11 @@
 package CombatePokemon;
+import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.Scanner;
 public class Combate {
     Entrenador atacante;
     Entrenador defensor;
+    public static Scanner sc = new Scanner(System.in);
 
     public Combate(Entrenador atacante, Entrenador defensor){
         this.atacante = atacante;
@@ -16,6 +18,10 @@ public class Combate {
         this.defensor = aux;
     }
 
+    public void dañarPkm(int daño){
+        getPkmDef().hp -= daño;
+    }
+
     public CrearPokemon getPkmAtac() {
         return atacante.equipo.get(0);
     }
@@ -23,8 +29,9 @@ public class Combate {
     public CrearPokemon getPkmDef() {
         return defensor.equipo.get(0);
     }
+    
     public boolean primerAtacante(){
-        return (getPkmAtac().calculateSpd() > getPkmDef().calculateSpd() && getPrioAtacan() >= getPrioDefen()) ? true : false;
+        return (getPkmAtac().getSpd() > getPkmDef().getSpd() && getPrioAtacan() >= getPrioDefen()) ? true : false;
     }
 
     public short getPrioAtacan(){
@@ -35,14 +42,15 @@ public class Combate {
         return getPkmDef().getAtaques().get(0).getPrioridad();
     }
 
-    public int calcularDaño(){
+    public int calcularDaño(int i){
+        i--;
         double b = getPkmAtac().getStab(); // STAB
         double e = getEfectividad(); // Efectividad
-        int v = variacionDaño(); // Variación de daño
-        int n = getPkmAtac().getNivelActual(); // Nivel del atacante
-        int a = getStatOfensivo(); // Ataque del atacante
-        int d = getStatDefensiva(); // Defensa del defensor
-        int p = getPkmAtac().getAtaques().get(0).getPotencia(); /* Potencia del ataque 
+        double v = variacionDaño(); // Variación de daño
+        double n = getPkmAtac().getNivelActual(); // Nivel del atacante
+        double a = getStatOfensivo(); // Ataque del atacante
+        double d = getStatDefensiva(); // Defensa del defensor
+        double p = getPkmAtac().getAtaques().get(i).getPotencia(); /* Potencia del ataque 
         double b = 1.5;
         double e = 0.5;
         int v = 85;
@@ -59,26 +67,47 @@ public class Combate {
         return 85 + (int) (Math.random() * (100 - 85) + 1);
     }
 
-    public boolean isFisico(){
+    public boolean fisicoOrSpecial(){
         return getPkmAtac().isFisico();
     }
 
     public int getStatOfensivo(){
-        return isFisico() ?
-        getPkmAtac().getEstadisticasCombate().getAtaqueBase() :
-        getPkmAtac().getEstadisticasCombate().getAtaqueEspecialBase();
+        return fisicoOrSpecial() ?
+        getPkmAtac().getAtk() :
+        getPkmAtac().getSpAtk();
     }
 
     public int getStatDefensiva(){
-            return isFisico() ?
-            getPkmDef().getEstadisticasCombate().getDefensaBase() : 
-            getPkmDef().getEstadisticasCombate().getDefensaEspecialBase();
+            return fisicoOrSpecial() ?
+            getPkmDef().getDef() : 
+            getPkmDef().getSpDef();
+    }
+    
+    public void selecionarAtaque(){
+        System.out.printf("¿Qué debería hacer %s?\n", getPkmAtac().getEmote());
+        listaAtaques();
+        int ataque = sc.nextInt();
+        if (ataque > 0 && ataque <= getPkmAtac().getAtaques().size()) {
+            int daño = calcularDaño(ataque);
+            dañarPkm(daño);
+            System.out.printf("¡%s ha recibido %d puntos de daño!\n",getPkmDef().getEmote(), daño);
+        } else {
+            System.out.println("Ataque no valido");
+        }
+    }
+
+    public void listaAtaques(){
+        ArrayList<Ataque> ataques = getPkmAtac().getAtaques();
+        for (int i = 0; i < ataques.size(); i++) {
+            System.out.printf("Movimiento %d: %s\n",i+1, getPkmAtac().getAtaques().get(i).getNombre());
+        }
     }
 
     public double getEfectividad(){
         String tipo = getPkmAtac().getTipo().getNombre();
-        HashMap<String, Double> efectividades = getPkmDef().getTipo().efectividades;        
-        return efectividades.get(tipo);
+        HashMap<String, Double> efectividades = getPkmDef().getTipo().efectividades;
+
+        return (efectividades.containsKey(tipo)) ? efectividades.get(tipo) : 1;
     }
 
     public StatsCombate getStatsAtacante(){
@@ -89,4 +118,11 @@ public class Combate {
         return getPkmDef().getEstadisticasCombate();
     }
 
+    public Entrenador getAtacante() {
+        return atacante;
+    }
+
+    public Entrenador getDefensor() {
+        return defensor;
+    }
 }
