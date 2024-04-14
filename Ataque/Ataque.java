@@ -1,11 +1,13 @@
-package CombatePokemon;
+package CombatePokemon.Ataque;
+
+import CombatePokemon.AtributosPkm.Tipo;
 
 public class Ataque extends AtaqueBase{
-    Categoria categoria = Categoria.FISICO;
-    int precision = 100;
-    short prioridad = 0;
-    boolean contacto = true;
-    String efectoSecundario = null;
+    private Categoria categoria = Categoria.FISICO;
+    private int precision = 100;
+    private short prioridad = 0;
+    private boolean contacto = true;
+    private String efectoSecundario = null;
 
 
     public static Ataque burbuja = new Ataque("Burbuja", Tipo.agua, 40, 30, Categoria.ESPECIAL, "Baja la velocidad del objetivo");

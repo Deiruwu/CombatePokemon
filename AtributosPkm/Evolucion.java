@@ -1,10 +1,10 @@
-package CombatePokemon;
+package CombatePokemon.AtributosPkm;
 
 public class Evolucion {
-    int estapasEvolutivas;
-    String crecimiento;
-    int NivelEvolucion;
-    int experiencia;
+    private int estapasEvolutivas;
+    private String crecimiento;
+    private int NivelEvolucion;
+    private int experiencia;
 
     public static Evolucion bulbasaur = new Evolucion(2, "Parabolico", 1);
     public static Evolucion ivysaur = new Evolucion(1, "Parabolico", 16);
@@ -45,6 +45,7 @@ public class Evolucion {
 
         return E;
     }
+
 
     public static void main(String[] args) {
         System.out.println(String.format("Experiencia necesaria para nivel 100: %,d", bulbasaur.experienciaNecesaria(100)));

@@ -1,28 +1,35 @@
-package CombatePokemon;
+package CombatePokemon.LogicaCombate;
 import java.util.ArrayList;
 import java.util.List;
+
+import CombatePokemon.Ataque.Ataque;
+import CombatePokemon.Ataque.Categoria;
+import CombatePokemon.AtributosPkm.Pokemon;
+
 import java.util.HashMap;
-public class CrearPokemon extends plantillaPokemon{
-    int nivelActual;
-    int hp;
-    int atk;
-    int def;
-    int spAtk;
-    int spDef;
-    int spd;
-    ArrayList<Ataque> ataques = new ArrayList<Ataque>();
+public class FactoryPkm extends Pokemon{
+    private int nivelActual;
+    private int hpTotal;
+    private int hpActual;
+    private int atk;
+    private int def;
+    private int spAtk;
+    private int spDef;
+    private int spd;
+    private ArrayList<Ataque> ataques = new ArrayList<Ataque>();
 
 
-    public CrearPokemon(plantillaPokemon pokemon, int nivelActual) {
+    public FactoryPkm(Pokemon pokemon, int nivelActual) {
         super(pokemon);
         this.nivelActual = nivelActual;
-        this.ataques = aprenderAtaques();
-    this.hp = calculateHP(pokemon.getEstadisticasCombate().getPsBase());
-    this.atk = calculateAtk(pokemon.getEstadisticasCombate().getAtaqueBase());
-    this.def = calculateDef(pokemon.getEstadisticasCombate().getDefensaBase());
-    this.spAtk = calculateSpAtk(pokemon.getEstadisticasCombate().getAtaqueEspecialBase());
-    this.spDef = calculateSpDef(pokemon.getEstadisticasCombate().getDefensaEspecialBase());
-    this.spd = calculateSpd(pokemon.getEstadisticasCombate().getVelocidadBase());
+        this.ataques = asignarAtaques();
+        this.hpTotal = calculateHP(pokemon.getEstadisticasCombate().getPsBase());
+        this.hpActual = hpTotal;
+        this.atk = calculateAtk(pokemon.getEstadisticasCombate().getAtaqueBase());
+        this.def = calculateDef(pokemon.getEstadisticasCombate().getDefensaBase());
+        this.spAtk = calculateSpAtk(pokemon.getEstadisticasCombate().getAtaqueEspecialBase());
+        this.spDef = calculateSpDef(pokemon.getEstadisticasCombate().getDefensaEspecialBase());
+        this.spd = calculateSpd(pokemon.getEstadisticasCombate().getVelocidadBase());
     }
     
     public List<Ataque> getAtaquesAprendibles() {
@@ -36,7 +43,7 @@ public class CrearPokemon extends plantillaPokemon{
         return listaAtaques;
     }
 
-    public ArrayList<Ataque> aprenderAtaques() {
+    public ArrayList<Ataque> asignarAtaques() {
         List<Ataque> ataquesAprendibles = getAtaquesAprendibles();
         ArrayList<Ataque> ataques = new ArrayList<Ataque>();
         int count = 0;
@@ -49,12 +56,11 @@ public class CrearPokemon extends plantillaPokemon{
         }
         return ataques;
     }
-
     
-public int calculateHP(int psBase) {
-    double ps = 10 + ((double) getNivelActual() / 100 * (psBase * 2)) + (double) getNivelActual();
-    return (int) ps;
-}
+    public int calculateHP(int psBase) {
+        double ps = 10 + ((double) getNivelActual() / 100 * (psBase * 2)) + (double) getNivelActual();
+        return (int) ps;
+    }
     //PS: 10 + { Nivel / 100 x [(Stat Base x 2)] } + Nivel
 
     public int calculateAtk(int atkBase) {
@@ -87,18 +93,12 @@ public int calculateHP(int psBase) {
     }
 
     public boolean isFisico(){
-        if (ataques.get(0).categoria == Categoria.FISICO) 
-            return true;
-        else
-            return false;
-        
+        return (ataques.get(0).getCategoria() == Categoria.FISICO) ? true : false;
     }
 
-    public double getStab() {
-        double stab = 1;
-        if (getTipo() == getAtaques().get(0).getTipo()) 
-            stab = 1.5;
-        return stab;
+    public double getStab(int i) {
+        return (getTipo() == getAtaques().get(i).getTipo()) ? 1.5 : 1;
+
     }
 
     public int getNivelActual() {
@@ -109,12 +109,21 @@ public int calculateHP(int psBase) {
         this.nivelActual = nivelActual;
     }
 
-    public int getHp() {
-        return hp;
+    public int getHpTotal() {
+        return hpTotal;
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
+    public void setHpTotal(int hp) {
+        this.hpTotal = hp;
+    }
+
+    public int getHpActual() {
+        
+        return (hpActual > 0) ? hpActual : 0;
+    }
+
+    public void setHpActual(int hpActual) {
+        this.hpActual = hpActual;
     }
 
     public int getAtk() {
@@ -167,10 +176,11 @@ public int calculateHP(int psBase) {
 
     @Override
     public String toString() {
-        return emote + " [nivelActual=" + nivelActual + ", hp=" + hp + ", atk=" + atk + ", def=" + def + ", spAtk="
-                + spAtk + ", spDef=" + spDef + ", spd=" + spd + ", ataques=" + ataques + "]";
+        return String.format("%s\t[PS: %d/%d Lvl: %d Atk: %d Def: %d AtkSP: %d DefSP: %d Spd: %d] \tAtaques: %s", 
+        getEmote(), getHpActual(), getHpTotal(), getNivelActual(), getAtk(), getDef(), getSpAtk(), getSpDef(), getSpd(), getAtaques());
     }
 
-    
-    
+    public String getPSCombate() {
+        return String.format("%s\t: %d/%d (%d%%)",getEmote(),getHpActual(), getHpTotal(), (int) (((double) getHpActual() / getHpTotal()) * 100.0));
+    }
 }

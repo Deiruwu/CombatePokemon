@@ -1,16 +1,17 @@
-package CombatePokemon;
+package CombatePokemon.AtributosPkm;
 import java.util.HashMap;
-public class plantillaPokemon {
 
-    String emote;
-    Tipo tipo;
-    double peso;
-    double altura;
-    char sexo;
-    int numPokedex;
-    HashMap<Integer, Ataque> ataquesAprendibles;
-    StatsCombate estadísticasCombate;
-    Evolucion evolucion;
+import CombatePokemon.Ataque.Ataque;
+public class Pokemon {
+    private String emote;
+    private Tipo tipo;
+    private double peso;
+    private double altura;
+    private char sexo;
+    private int numPokedex;
+    private HashMap<Integer, Ataque> ataquesAprendibles;
+    private StatsCombate estadísticasCombate;
+    private Evolucion evolucion;
     
     static HashMap<Integer, Ataque> ataquesAprendiblesBulbasaur = new HashMap<Integer, Ataque>() {{
         put(1, Ataque.placaje);
@@ -40,13 +41,13 @@ public class plantillaPokemon {
         put(42, Ataque.hidrobomba);
     }};
 
-    public static plantillaPokemon bulbasaur = new plantillaPokemon("Bulbasaur", Tipo.planta, 6.9, 0.7, 'M', 1, ataquesAprendiblesBulbasaur, StatsCombate.bulbasaur, Evolucion.bulbasaur);
-    public static plantillaPokemon charmander = new plantillaPokemon("Charmander", Tipo.fuego, 8.5, 0.6, 'M', 4, ataquesAprendiblesCharmander, StatsCombate.charmander, Evolucion.charmander);
-    public static plantillaPokemon squirtle = new plantillaPokemon("Squirtle", Tipo.agua, 9.0, 0.5, 'M', 7, ataquesAprendiblesSquirtle, StatsCombate.squirtle, Evolucion.squirtle);
+    public static Pokemon bulbasaur = new Pokemon("Bulbasaur", Tipo.planta, 6.9, 0.7, 'M', 1, ataquesAprendiblesBulbasaur, StatsCombate.bulbasaur, Evolucion.bulbasaur);
+    public static Pokemon charmander = new Pokemon("Charmander", Tipo.fuego, 8.5, 0.6, 'M', 4, ataquesAprendiblesCharmander, StatsCombate.charmander, Evolucion.charmander);
+    public static Pokemon squirtle = new Pokemon("Squirtle", Tipo.agua, 9.0, 0.5, 'M', 7, ataquesAprendiblesSquirtle, StatsCombate.squirtle, Evolucion.squirtle);
 
 
 
-    public plantillaPokemon(String emote, Tipo tipo, double peso, double altura, char sexo, int numPokedex,
+    public Pokemon(String emote, Tipo tipo, double peso, double altura, char sexo, int numPokedex,
             HashMap<Integer, Ataque> ataquesAprendibles, StatsCombate estadísticasCombate,
             Evolucion evolucion) {
         this.emote = emote;
@@ -60,7 +61,7 @@ public class plantillaPokemon {
         this.evolucion = evolucion;
     }
 
-    public plantillaPokemon(plantillaPokemon pokemon) {
+    public Pokemon(Pokemon pokemon) {
         this.emote = pokemon.emote;
         this.tipo = pokemon.tipo;
         this.peso = pokemon.peso;

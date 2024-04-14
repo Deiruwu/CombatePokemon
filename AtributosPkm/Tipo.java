@@ -1,9 +1,9 @@
-package CombatePokemon;
+package CombatePokemon.AtributosPkm;
 import java.util.HashMap;
 
 public class Tipo {
-    String nombre;
-    HashMap<String, Double> efectividades = new HashMap<>();
+    private String nombre;
+    private HashMap<String, Double> efectividades = new HashMap<>();
     
     public static HashMap<String, Double> efectividadesPlanta = new HashMap<>();
     public static HashMap<String, Double> efectividadesAgua = new HashMap<>();

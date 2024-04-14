@@ -1,12 +1,12 @@
-package CombatePokemon;
+package CombatePokemon.AtributosPkm;
 
 public class StatsCombate {
-    int psBase;
-    int ataqueBase;
-    int defensa;
-    int ataqueEspecialBase;
-    int defensaEspecialBase;
-    int velocidadBase;
+    private int psBase;
+    private int ataqueBase;
+    private int defensa;
+    private int ataqueEspecialBase;
+    private int defensaEspecialBase;
+    private int velocidadBase;
 
     public StatsCombate(int psBase, int ataqueBase, int defensa, int ataqueEspecialBase, int defensaEspecialBase, int velocidadBase) {
         this.psBase = psBase;
