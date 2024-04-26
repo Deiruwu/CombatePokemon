@@ -66,6 +66,4 @@ public abstract class AtaqueBase {
     public String toString() {
         return String.format("%s %d PP de %d", nombre, ppActual, ppTotal);
     }
-
-    
 }

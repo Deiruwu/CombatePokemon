@@ -92,6 +92,10 @@ public class FactoryPkm extends Pokemon{
         return false;
     }
 
+    public boolean isStatus(){
+        return ataques.get(0).getCategoria() == Categoria.ESTADO ? true : false;
+    }
+
     public boolean isFisico(){
         return (ataques.get(0).getCategoria() == Categoria.FISICO) ? true : false;
     }

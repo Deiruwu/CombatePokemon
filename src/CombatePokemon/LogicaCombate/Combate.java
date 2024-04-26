@@ -105,6 +105,17 @@ public class Combate {
         return (int) daño;
     }
 
+
+    //Realizar un metodo que actue en función de si el ataque es un ataque de daño o un ataque de estado
+    public void efectoAtaque(int i){
+        if (isStatus()) {
+            System.out.printf("¡%s ha usado %s! y ", getPkmAtac().getEmote(), getPkmAtac().getAtaques().get(i).getNombre());
+            getPkmDef().getAtaques().get(0).getEfectoSecundario();
+        } else {
+            dañarPkm(i);
+        }
+    }
+
     public int variacionDaño(){
         double variacion =  85 + (int) (Math.random() * (100 - 85) + 1);
         return (int) variacion;
@@ -112,6 +123,10 @@ public class Combate {
 
     public boolean fisicoOrSpecial(){
         return getPkmAtac().isFisico();
+    }
+
+    public boolean isStatus(){
+        return getPkmAtac().isStatus();
     }
     
     public int getStatOfensivo(){
